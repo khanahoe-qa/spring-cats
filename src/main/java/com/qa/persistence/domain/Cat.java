@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,9 @@ public class Cat {
 	private String name;
 	private int age;
 	private float speechVolume;
+	
+	@ManyToOne(targetEntity = House.class)
+	private House house = null;
 	
 	// full constructor
 	public Cat(String name, int age, float speechVolume) {

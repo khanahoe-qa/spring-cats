@@ -9,9 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,11 +24,11 @@ public class House {
 	private Long id;
 	
 	@OneToMany(mappedBy = "house")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Cat> cats = new ArrayList<>();
 	
 	private String name;
 	
+
 	public House(String name) {
 		super();
 		this.name = name;
