@@ -16,57 +16,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.persistence.domain.Cat;
-import com.qa.persistence.dtos.CatDTO;
-import com.qa.services.CatService;
+import com.qa.persistence.domain.House;
+import com.qa.persistence.dtos.HouseDTO;
+import com.qa.services.HouseService;
 
 @RestController
-@RequestMapping("/cat")
-public class CatController {
+@RequestMapping("/house")
+public class HouseController {
 
-	private CatService service;
+	private HouseService service;
 	private static Long currentId = 0L;
 	
 	@Autowired
-	public CatController(CatService service) {
+	public HouseController(HouseService service) {
 		super();
 		this.service = service;
 	}
 	
 	// GET
-	@GetMapping("/greetings")
-	public String helloWorld() {
-		return "Hello world";
-	}
-	
 	@GetMapping("/readAll")
-	public ResponseEntity<List<CatDTO>> readAll() {
-		return ResponseEntity.ok(this.service.getAllCats());
+	public ResponseEntity<List<HouseDTO>> readAll() {
+		return ResponseEntity.ok(this.service.getAllHouses());
 	}
 	
 	@GetMapping("/read/{id}")
-	public ResponseEntity<CatDTO> readCat(@PathVariable("id") Long id) {
-		return new ResponseEntity<CatDTO>(this.service.getCat(id), HttpStatus.OK);
+	public ResponseEntity<HouseDTO> readHouse(@PathVariable("id") Long id) {
+		return new ResponseEntity<HouseDTO>(this.service.getHouse(id), HttpStatus.OK);
 	}
 	
 	// POST
 	@PostMapping("/create")
-	public ResponseEntity<CatDTO> create(@RequestBody Cat cat) {
-		cat.setId(currentId);
+	public ResponseEntity<HouseDTO> create(@RequestBody House house) {
+		house.setId(currentId);
 		++currentId;
-		return new ResponseEntity<CatDTO>(this.service.addCat(cat), HttpStatus.CREATED);
+		return new ResponseEntity<HouseDTO>(this.service.addHouse(house), HttpStatus.CREATED);
 	}
 	
 	// PUT
 	@PutMapping("/update")
-	public ResponseEntity<CatDTO> update(@PathParam("id") Long id, @RequestBody Cat cat) {
-		return new ResponseEntity<CatDTO>(this.service.updateCat(id, cat), HttpStatus.ACCEPTED);
+	public ResponseEntity<HouseDTO> update(@PathParam("id") Long id, @RequestBody House house) {
+		return new ResponseEntity<HouseDTO>(this.service.updateHouse(id, house), HttpStatus.ACCEPTED);
 	}
 
 	// DELETE
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<CatDTO> delete(@PathVariable("id") Long id) {
-		return this.service.removeCat(id) ?
+	public ResponseEntity<HouseDTO> delete(@PathVariable("id") Long id) {
+		return this.service.removeHouse(id) ?
 				new ResponseEntity<>(HttpStatus.NO_CONTENT) :
 				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
