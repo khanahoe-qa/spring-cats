@@ -5,7 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cat {
 
 	@Id
@@ -20,11 +23,15 @@ public class Cat {
 	@EqualsAndHashCode.Exclude
 	private Long Id;
 	
+	@NotNull
 	private String name;
+	
+	@NotNull
 	private int age;
+	
 	private float speechVolume;
 	
-	@ManyToOne(targetEntity = House.class)
+	@ManyToOne
 	private House house = null;
 	
 	// full constructor
